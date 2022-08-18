@@ -14,12 +14,19 @@ export default function handler(req, res) {
 
   const data = {
     to: 'noam@heynoam.com',
-    from: 'nelbaz@gmail.com',
+    from: 'noam@heynoam.com',
     subject: 'New message from contact form',
     text: message,
     html: message.replace(/\r\n/g, '<br />'),
   }
-  mail.send(data)
+  mail
+    .send(data)
+    .then(() => {
+      console.log('Email sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
 
   res.status(200).json({ status: 'Ok' })
 }
